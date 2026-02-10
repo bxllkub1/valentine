@@ -145,26 +145,50 @@
             align-items: center;
             backface-visibility: hidden;
             border-radius: 15px;
+            transition: opacity 0.3s ease;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 13px;
+            display: block;
+        }
+
+        .card .front {
+            font-size: 3em;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        @media (max-width: 480px) {
+            .card .front {
+                font-size: 2em;
+            }
         }
 
         .card .back {
-            transform: rotateY(180deg);
+            background: transparent;
         }
 
         .card:not(.flipped) .front {
             opacity: 1;
+            z-index: 2;
         }
 
         .card:not(.flipped) .back {
             opacity: 0;
+            z-index: 1;
         }
 
         .card.flipped .front {
             opacity: 0;
+            z-index: 1;
         }
 
         .card.flipped .back {
             opacity: 1;
+            z-index: 2;
         }
 
         .restart-btn {
@@ -280,15 +304,39 @@
 
         <div class="win-message" id="winMessage">
             <h2 style="color: #e63946; font-size: 2.5em; margin-bottom: 15px;">🎉 ยินดีด้วย! 🎉</h2>
-            <p style="font-size: 1.3em;">คุณชนะแล้ว! 💖</p>
+            <p style="font-size: 1.3em;">เก่งมากอ้วน เข้าสู่ระบบได้เลย! 💖</p>
             <p style="font-size: 1.1em; margin-top: 10px;">ใช้เวลา: <span id="finalTime"></span> วินาที</p>
             <p style="font-size: 1.1em;">จำนวนครั้ง: <span id="finalMoves"></span> ครั้ง</p>
+            <button onclick="window.location.href='next.html'" style="
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%);
+                color: white;
+                border: none;
+                padding: 15px 40px;
+                font-size: 1.1em;
+                border-radius: 50px;
+                cursor: pointer;
+                margin-top: 20px;
+                box-shadow: 0 8px 20px rgba(255, 20, 147, 0.3);
+                transition: all 0.3s ease;
+            " onmouseover="this.style.transform='translateY(-3px) scale(1.05)'" 
+               onmouseout="this.style.transform='translateY(0) scale(1)'">
+                ➡️ ถัดไป
+            </button>
         </div>
     </div>
 
     <script>
-        const emojis = ['💕', '💖', '💗', '💝', '💘', '❤️', '🌹', '💐'];
-        let cards = [...emojis, ...emojis];
+        const images = [
+            'images/1.jpg',
+            'images/2.jpg',
+            'images/3.jpg',
+            'images/4.jpg',
+            'images/5.jpg',
+            'images/6.jpg'
+        ];
+        let cards = [...images, ...images];
         let flippedCards = [];
         let matchedPairs = 0;
         let moves = 0;
@@ -309,14 +357,14 @@
             gameBoard.innerHTML = '';
             const shuffledCards = shuffle([...cards]);
             
-            shuffledCards.forEach((emoji, index) => {
+            shuffledCards.forEach((imagePath, index) => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.dataset.emoji = emoji;
+                card.dataset.image = imagePath;
                 card.dataset.index = index;
                 card.innerHTML = `
                     <div class="front">❓</div>
-                    <div class="back">${emoji}</div>
+                    <div class="back"><img src="${imagePath}" alt="card"></div>
                 `;
                 card.addEventListener('click', flipCard);
                 gameBoard.appendChild(card);
@@ -351,7 +399,7 @@
 
         function checkMatch() {
             const [card1, card2] = flippedCards;
-            const match = card1.dataset.emoji === card2.dataset.emoji;
+            const match = card1.dataset.image === card2.dataset.image;
 
             setTimeout(() => {
                 if (match) {
@@ -359,7 +407,7 @@
                     card2.classList.add('matched');
                     matchedPairs++;
                     
-                    if (matchedPairs === emojis.length) {
+                    if (matchedPairs === images.length) {
                         winGame();
                     }
                 } else {

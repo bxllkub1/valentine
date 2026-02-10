@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ขอบคุณนะคะ 💕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe4f1 25%, #ffd6e8 50%, #ffc8df 75%, #ffbad6 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 192, 203, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 228, 225, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            text-align: center;
+            padding: 60px 50px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            box-shadow: 
+                0 8px 32px rgba(255, 105, 180, 0.2),
+                0 2px 8px rgba(255, 182, 193, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 650px;
+            width: 90%;
+            animation: fadeIn 1s ease-in;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #ff6b9d 0%, #d946a0 50%, #ff1493 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 2px 8px rgba(255, 20, 147, 0.15));
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        .message {
+            font-size: 1.5em;
+            color: #e63946;
+            line-height: 1.8;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 480px) {
+            .message {
+                font-size: 1.2em;
+            }
+        }
+
+        .emoji-rain {
+            font-size: 3em;
+            margin: 20px 0;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .heart-btn {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.3);
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .heart-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            .heart-btn {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: fixed;
+            font-size: 30px;
+            color: #ff6b9d;
+            animation: float 6s infinite;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💖วันนี้ยิ้มรึยังหมูอ้วน💖</h1>
+        
+        <div class="emoji-rain">🌹✨💕✨🌹</div>
+        
+        <div class="message">
+            ขอบคุณที่เล่นเกมกับหมูน้อยนะคะ<br>
+            รักอ้วนที่สุดเลย วันนี้เค้ามีของขวัญพิเศษมาให้อ้วนด้วย ลองเปิดของในกล่องดูสิอ้วน💕<br>
+            <br>
+            <span style="font-size: 0.8em; color: #ff6b9d;">
+                loving you too much so much very much ❤️
+            </span>
+        </div>
+
+        <button class="heart-btn" onclick="window.location.href='index.html'">
+            🏠 กลับหน้าแรก
+        </button>
+    </div>
+
+    <script>
+        // Create floating hearts
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = ['❤️', '💕', '💖', '💗', '💝'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = '0s';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }, 300);
+    </script>
+</body>
+</html>
