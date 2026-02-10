@@ -427,8 +427,25 @@
             const message = document.getElementById('responseMessage');
             message.innerHTML = `
                 <h2 style="color: #e63946; font-size: 2.5em;">🎉 เย้ๆๆๆ! 🎉</h2>
-                <p style="font-size: 1.5em; margin-top: 15px;">อ้วนก็รักเค้าเหมือนกันนน 💕💕💕</p>
-                <p style="font-size: 1.2em; margin-top: 10px;">Happy Valentine's Day นะคะ! 🌹</p>
+                <p style="font-size: 1.5em; margin-top: 15px;">เค้าก็รักอ้วนเหมือนกันนน 💕💕💕</p>
+                <p style="font-size: 1.2em; margin-top: 10px;">Happy Valentine's Day นะหมูน้อย! 🌹</p>
+                <button onclick="unlockSystem()" style="
+                    font-family: 'Poppins', sans-serif;
+                    font-weight: 600;
+                    background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%);
+                    color: white;
+                    border: none;
+                    padding: 15px 40px;
+                    font-size: 1.1em;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                    box-shadow: 0 8px 20px rgba(255, 20, 147, 0.3);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-3px) scale(1.05)'" 
+                   onmouseout="this.style.transform='translateY(0) scale(1)'">
+                    🔓 ปลดล็อคเพื่อเข้าสู่ระบบ
+                </button>
             `;
             message.style.display = 'block';
             createHearts();
@@ -439,6 +456,13 @@
                 btn.disabled = true;
                 btn.style.opacity = '0.6';
             });
+        }
+
+        function unlockSystem() {
+            createHearts();
+            setTimeout(() => {
+                window.location.href = 'game.html';
+            }, 1000);
         }
 
         function answerNoLove() {
@@ -452,38 +476,9 @@
             loveButton.style.transform = `scale(${loveButtonScale})`;
             loveButton.style.transition = 'transform 0.3s ease';
             
-            // Messages based on click count
-            const messages = [
-                {
-                    title: '😢 เสียใจจัง...',
-                    text: 'แต่อ้วนก็ยังรักเค้าอยู่นะ 💔',
-                    subtitle: 'ลองกดอีกทีดูสิ? 🥺'
-                },
-                {
-                    title: '🥺 อ้วนเสียใจมากเลย...',
-                    text: 'กดไม่รักไปอีกแล้ว... 😭',
-                    subtitle: 'ปุ่มรักใหญ่ขึ้นแล้วนะ ลองกดดูสิ 💕'
-                },
-                {
-                    title: '😭 ร้องไห้แล้ว...',
-                    text: 'กี่ครั้งแล้วที่บอกไม่รัก 💔',
-                    subtitle: 'ดูสิปุ่มรักใหญ่ขนาดไหนแล้ว! 💗'
-                },
-                {
-                    title: '😢😢😢 ใจสลาย...',
-                    text: 'แต่อ้วนยังรักเค้าอยู่นะ ไม่ว่าอะไร 💕',
-                    subtitle: 'ปุ่มรักเกือบเต็มหน้าจอแล้ว กดเลยน้า! ❤️'
-                }
-            ];
-            
-            const msgIndex = Math.min(noClickCount - 1, messages.length - 1);
-            const currentMsg = messages[msgIndex];
-            
+            // Simple message
             message.innerHTML = `
-                <h2 style="color: #e63946; font-size: 2em;">${currentMsg.title}</h2>
-                <p style="font-size: 1.3em; margin-top: 15px;">${currentMsg.text}</p>
-                <p style="font-size: 1.1em; margin-top: 10px;">${currentMsg.subtitle}</p>
-                <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.7;">กดไม่รักไปแล้ว ${noClickCount} ครั้ง 😢</p>
+                <h2 style="color: #e63946; font-size: 2em;">กดใหม่อีกครั้ง</h2>
             `;
             message.style.display = 'block';
             
