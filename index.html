@@ -402,6 +402,9 @@
     </div>
 
     <script>
+        let noClickCount = 0;
+        let loveButtonScale = 1;
+
         function createHearts() {
             for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
@@ -430,31 +433,71 @@
             message.style.display = 'block';
             createHearts();
             
-            // Add celebration effect
-            document.body.style.animation = 'none';
-            setTimeout(() => {
-                document.body.style.animation = '';
-            }, 10);
+            // Reset buttons
+            const buttons = document.querySelectorAll('.heart-button');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+            });
         }
 
         function answerNoLove() {
+            noClickCount++;
             const message = document.getElementById('responseMessage');
+            const loveButton = document.querySelector('.heart-button:first-of-type');
+            const noButton = event.target;
+            
+            // Increase love button size
+            loveButtonScale += 0.3;
+            loveButton.style.transform = `scale(${loveButtonScale})`;
+            loveButton.style.transition = 'transform 0.3s ease';
+            
+            // Messages based on click count
+            const messages = [
+                {
+                    title: '😢 เสียใจจัง...',
+                    text: 'แต่อ้วนก็ยังรักเค้าอยู่นะ 💔',
+                    subtitle: 'ลองกดอีกทีดูสิ? 🥺'
+                },
+                {
+                    title: '🥺 อ้วนเสียใจมากเลย...',
+                    text: 'กดไม่รักไปอีกแล้ว... 😭',
+                    subtitle: 'ปุ่มรักใหญ่ขึ้นแล้วนะ ลองกดดูสิ 💕'
+                },
+                {
+                    title: '😭 ร้องไห้แล้ว...',
+                    text: 'กี่ครั้งแล้วที่บอกไม่รัก 💔',
+                    subtitle: 'ดูสิปุ่มรักใหญ่ขนาดไหนแล้ว! 💗'
+                },
+                {
+                    title: '😢😢😢 ใจสลาย...',
+                    text: 'แต่อ้วนยังรักเค้าอยู่นะ ไม่ว่าอะไร 💕',
+                    subtitle: 'ปุ่มรักเกือบเต็มหน้าจอแล้ว กดเลยน้า! ❤️'
+                }
+            ];
+            
+            const msgIndex = Math.min(noClickCount - 1, messages.length - 1);
+            const currentMsg = messages[msgIndex];
+            
             message.innerHTML = `
-                <h2 style="color: #e63946; font-size: 2em;">😢 เสียใจจัง...</h2>
-                <p style="font-size: 1.3em; margin-top: 15px;">แต่อ้วนก็ยังรักเค้าอยู่นะ 💔</p>
-                <p style="font-size: 1.1em; margin-top: 10px;">ขอโอกาสอีกทีได้มั้ย? 🥺</p>
+                <h2 style="color: #e63946; font-size: 2em;">${currentMsg.title}</h2>
+                <p style="font-size: 1.3em; margin-top: 15px;">${currentMsg.text}</p>
+                <p style="font-size: 1.1em; margin-top: 10px;">${currentMsg.subtitle}</p>
+                <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.7;">กดไม่รักไปแล้ว ${noClickCount} ครั้ง 😢</p>
             `;
             message.style.display = 'block';
             
-            // Make "ไม่รัก" button move away on next hover
-            const noButton = event.target;
+            // Make "ไม่รัก" button move away
             noButton.style.position = 'relative';
+            const randomX = (Math.random() - 0.5) * 300;
+            const randomY = (Math.random() - 0.5) * 200;
+            noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            noButton.style.transition = 'transform 0.3s ease';
             
-            noButton.onmouseover = function() {
-                const randomX = (Math.random() - 0.5) * 200;
-                const randomY = (Math.random() - 0.5) * 200;
-                this.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            };
+            // Reset position after a while so user can click again
+            setTimeout(() => {
+                noButton.style.transform = 'translate(0, 0)';
+            }, 1000);
         }
 
         // Auto create hearts periodically
