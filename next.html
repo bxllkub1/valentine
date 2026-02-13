@@ -196,7 +196,7 @@
         
         <div class="message">
             ขอบคุณที่เล่นเกมนะอ้วน เค้าตั้งใจจัดเตรียมมาให้เลยนะ<br>
-            รักอ้วนที่สุดเลย วันนี้เค้ามีของขวัญพิเศษมาให้อ้วนด้วย ลองเปิดของในกล่องดูสิอ้วน💕<br>
+            รักอ้วนที่สุดเลย วันนี้เค้ามีของขวัญพิเศษมาให้อ้วนด้วย ลองเปิดของในกล่องดูสิอ้วน อย่าลืมเปิดหน้านี้ทิ้งไว้ตอนเปิดกล่องด้วยนะจะได้ฟังเพลง💕<br>
             <br>
             <span style="font-size: 0.8em; color: #ff6b9d;">
                 loving you too much so much very much ❤️
@@ -281,7 +281,8 @@
                     'loop': 1,
                     'playlist': 'XbSP_IJ835E',
                     'controls': 0,
-                    'modestbranding': 1
+                    'modestbranding': 1,
+                    'mute': 1
                 },
                 events: {
                     'onReady': onPlayerReady
@@ -290,8 +291,8 @@
         }
 
         function onPlayerReady(event) {
+            event.target.mute();
             event.target.playVideo();
-            event.target.setVolume(30);
         }
         
         // Music control
@@ -299,16 +300,20 @@
         let musicBtn = document.getElementById('music-btn');
         
         function toggleMusic() {
-            if (!player || !player.playVideo) return;
+            if (!player || !player.playVideo) {
+                alert('กรุณารอสักครู่ ระบบกำลังโหลดเพลง...');
+                return;
+            }
             
             if (musicPlaying) {
+                player.mute();
                 player.pauseVideo();
                 musicBtn.innerHTML = '🔇';
                 musicPlaying = false;
             } else {
-                player.playVideo();
                 player.unMute();
-                player.setVolume(30);
+                player.setVolume(50);
+                player.playVideo();
                 musicBtn.innerHTML = '🔊';
                 musicPlaying = true;
             }
@@ -319,7 +324,7 @@
         function startMusic() {
             if (!hasInteracted && player && player.playVideo) {
                 player.unMute();
-                player.setVolume(30);
+                player.setVolume(50);
                 player.playVideo();
                 musicBtn.innerHTML = '🔊';
                 musicPlaying = true;
@@ -327,8 +332,8 @@
             }
         }
         
-        document.addEventListener('click', startMusic);
-        document.addEventListener('touchstart', startMusic);
+        document.addEventListener('click', startMusic, { once: true });
+        document.addEventListener('touchstart', startMusic, { once: true });
     </script>
 </body>
 </html>
