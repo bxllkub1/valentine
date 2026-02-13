@@ -472,7 +472,10 @@
     <div id="youtube-player" style="position: fixed; bottom: 10px; right: 10px; z-index: 1000; opacity: 0;"></div>
     
     <!-- Music Control Button -->
-    <button id="music-btn" style="position: fixed; top: 20px; left: 20px; z-index: 2000; background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%); color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 24px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;" onclick="toggleMusic()">🔇</button>
+    <button id="music-btn" style="position: fixed; top: 20px; left: 20px; z-index: 2000; background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%); color: white; border: none; border-radius: 25px; padding: 12px 20px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif;" onclick="toggleMusic()">
+        <span style="font-size: 20px;">🔇</span>
+        <span id="music-text">เปิดเพลง</span>
+    </button>
 
     <script>
         // Load YouTube IFrame API
@@ -510,6 +513,7 @@
         // Music control
         let musicPlaying = false;
         let musicBtn = document.getElementById('music-btn');
+        let musicText = document.getElementById('music-text');
         
         function toggleMusic() {
             if (!player || !player.playVideo) {
@@ -520,13 +524,15 @@
             if (musicPlaying) {
                 player.mute();
                 player.pauseVideo();
-                musicBtn.innerHTML = '🔇';
+                musicBtn.querySelector('span:first-child').innerHTML = '🔇';
+                musicText.textContent = 'เปิดเพลง';
                 musicPlaying = false;
             } else {
                 player.unMute();
                 player.setVolume(50);
                 player.playVideo();
-                musicBtn.innerHTML = '🔊';
+                musicBtn.querySelector('span:first-child').innerHTML = '🔊';
+                musicText.textContent = 'ปิดเพลง';
                 musicPlaying = true;
             }
         }
@@ -538,7 +544,8 @@
                 player.unMute();
                 player.setVolume(50);
                 player.playVideo();
-                musicBtn.innerHTML = '🔊';
+                musicBtn.querySelector('span:first-child').innerHTML = '🔊';
+                musicText.textContent = 'ปิดเพลง';
                 musicPlaying = true;
                 hasInteracted = true;
             }
