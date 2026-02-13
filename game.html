@@ -506,8 +506,9 @@
         }
 
         function onPlayerReady(event) {
-            event.target.mute();
+            console.log('YouTube player ready');
             event.target.playVideo();
+            // Don't mute initially to test autoplay
         }
         
         // Music control
@@ -523,13 +524,12 @@
             
             if (musicPlaying) {
                 player.mute();
-                player.pauseVideo();
                 musicBtn.querySelector('span:first-child').innerHTML = '🔇';
                 musicText.textContent = 'เปิดเพลง';
                 musicPlaying = false;
             } else {
                 player.unMute();
-                player.setVolume(50);
+                player.setVolume(70);
                 player.playVideo();
                 musicBtn.querySelector('span:first-child').innerHTML = '🔊';
                 musicText.textContent = 'ปิดเพลง';
@@ -537,22 +537,25 @@
             }
         }
         
-        // Auto play on first user interaction
+        // Auto start music when user interacts
         let hasInteracted = false;
-        function startMusic() {
+        function startMusicOnInteraction() {
             if (!hasInteracted && player && player.playVideo) {
                 player.unMute();
-                player.setVolume(50);
+                player.setVolume(70);
                 player.playVideo();
                 musicBtn.querySelector('span:first-child').innerHTML = '🔊';
                 musicText.textContent = 'ปิดเพลง';
                 musicPlaying = true;
                 hasInteracted = true;
+                console.log('Music started');
             }
         }
         
-        document.addEventListener('click', startMusic, { once: true });
-        document.addEventListener('touchstart', startMusic, { once: true });
+        // Listen for any user interaction
+        document.addEventListener('click', startMusicOnInteraction, { once: true });
+        document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
+        document.addEventListener('keydown', startMusicOnInteraction, { once: true });
     </script>
 </body>
 </html>
